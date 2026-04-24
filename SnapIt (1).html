@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapIt - Guia Rápido de Uso</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #34a861; 
+            --primary-dark: #288a4d;
+            --secondary: #64748b;
+            --bg: #ffffff;
+            --bg-alt: #f1f8f4;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --accent: #e6f4ea;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 1rem auto;
+            background: var(--bg);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            padding: 1.5rem 3rem 3rem 3rem;
+            border-radius: 8px;
+        }
+
+        @media print {
+            body { background: white; }
+            .page-container {
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                max-width: none;
+            }
+            .page-break { page-break-before: always; }
+            @page { margin: 1.5cm; }
+        }
+
+        /* Capa e Logo */
+        .cover {
+            text-align: center;
+            padding: 0.5rem 0 1.5rem;
+            border-bottom: 3px solid var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .logo-snapit {
+            width: 120px;
+            height: 100px;
+            margin: 0 auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        .cover h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: var(--primary);
+            letter-spacing: -1.5px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .cover p {
+            font-size: 1.15rem;
+            color: var(--secondary);
+            margin-top: 0.25rem;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: var(--text);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3::before {
+            content: "";
+            width: 4px;
+            height: 1.2rem;
+            background: var(--primary);
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        .feature-card {
+            background: var(--bg-alt);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.25rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .shortcut {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 0.85em;
+            box-shadow: 0 2px 0 #000;
+            display: inline-block;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) { background-color: #f9fafb; }
+
+        .instruction-box {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            padding: 1.25rem;
+            border-radius: 10px;
+            color: #92400e;
+            margin: 1.5rem 0;
+        }
+
+        .shortcut-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.75rem 0 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .shortcut-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Grid de Introdução com links */
+        .intro-grid {
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 1.5rem; 
+            margin: 2rem 0;
+        }
+
+        .intro-link {
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease;
+        }
+
+        .intro-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .intro-item {
+            text-align: center; 
+            padding: 1.5rem 1rem;
+            background: var(--bg); 
+            border-radius: 16px;
+            border: 2px solid var(--accent);
+            height: 100%;
+        }
+
+        .intro-item p {
+            margin: 0.75rem 0 0;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .intro-item small {
+            display: block;
+            color: var(--secondary);
+            margin-top: 4px;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        .badge {
+            background: var(--accent); 
+            color: var(--primary-dark); 
+            padding: 0.4rem 0.8rem; 
+            border-radius: 20px; 
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .link-button {
+            display: block;
+            width: fit-content;
+            margin: 1rem auto;
+            padding: 0.75rem 2rem;
+            background: var(--primary);
+            color: white !important;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .link-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .secondary-link-button {
+            display: block;
+            width: fit-content;
+            margin: 0.5rem auto;
+            padding: 0.5rem 1.5rem;
+            background: white;
+            color: var(--primary-dark) !important;
+            text-decoration: none;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .secondary-link-button:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <!-- CAPA -->
+        <header class="cover">
+            <div class="logo-snapit">
+                <i data-lucide="rocket" size="80" color="#34a861"></i>
+            </div>
+            <h1>SnapIt</h1>
+            <p>Guia Rápido e Completo de Uso</p>
+            <div style="margin-top: 1rem;">
+                <span class="badge">Produtividade</span>
+                <span class="badge">Precisão</span>
+                <span class="badge">Segurança</span>
+            </div>
+        </header>
+
+        <section id="introducao">
+            <p style="text-align: center; max-width: 700px; margin: 0 auto;">
+                O <strong>SnapIt</strong> é uma extensão desenvolvida para aumentar a produtividade na escrita, consolidando três pilares essenciais para o seu fluxo de trabalho:
+            </p>
+            
+            <div class="intro-grid">
+                <a href="#autocomplete" class="intro-link">
+                    <div class="intro-item">
+                        <i data-lucide="keyboard" color="#34a861" size="40"></i>
+                        <p>Autocomplete</p>
+                        <small>(Expansão de Texto)</small>
+                    </div>
+                </a>
+                <a href="#spellcheck" class="intro-link">
+                    <div class="intro-item">
+                        <i data-lucide="spell-check" color="#34a861" size="40"></i>
+                        <p>Spellcheck</p>
+                        <small>(Corretor Ortográfico)</small>
+                    </div>
+                </a>
+                <a href="#autosave" class="intro-link">
+                    <div class="intro-item">
+                        <i data-lucide="save" color="#34a861" size="40"></i>
+                        <p>Autosave</p>
+                        <small>(Recuperação Automática)</small>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 1 -->
+        <h2><i data-lucide="layers"></i> 1. Funcionalidades Principais</h2>
+        
+        <h3 id="autocomplete">1.1. Autocomplete (Expansão de Texto)</h3>
+        <p>Crie <strong>Snaps</strong> (comandos curtos) que se expandem para textos longos predefinidos. Ideal para saudações e respostas padrão.</p>
+        <div class="feature-card">
+            <strong>Exemplo Prático:</strong><br>
+            Digitando <span class="shortcut">/saudacao</span> o sistema insere automaticamente o texto configurado.
+        </div>
+
+        <h3 id="spellcheck">1.2. Spellcheck (Corretor Ortográfico)</h3>
+        <p>Corretor integrado focado no domínio do <strong>Bling</strong> para garantir profissionalismo total.</p>
+        <ul>
+            <li><strong>Ativação:</strong> Clique no ícone de ativação no <em>header</em> da extensão (necessário apenas uma vez).</li>
+            <li><strong>Inteligência:</strong> Sugere correções em tempo real e evita erros comuns.</li>
+        </ul>
+        <div class="instruction-box">
+            <strong>Navegação por Teclado:</strong>
+            <ul class="shortcut-list">
+                <li><span class="shortcut">OPÇÃO</span> <span>Abre o menu de sugestões (tecla próxima ao Alt/Setas).</span></li>
+                <li><span class="shortcut">↑ ↓</span> <span>Navega entre as sugestões disponíveis.</span></li>
+                <li><span class="shortcut">ENTER</span> <span>Seleciona e aplica a correção sugerida.</span></li>
+                <li><span class="shortcut">ESC</span> <span>Fecha o menu de sugestões sem aplicar alterações.</span></li>
+            </ul>
+        </div>
+
+        <h3 id="autosave">1.3. Autosave (Recuperação de Texto)</h3>
+        <p>Nunca mais perca textos por fechamento acidental de abas ou quedas de energia.</p>
+        <p><strong>Recuperação Imediata:</strong> Use o atalho <span class="shortcut">CTRL + Z</span> para restaurar o último conteúdo digitado.</p>
+
+        <h3 id="formatador">1.4. Formatador de Textos</h3>
+        <p>Utilize atalhos rápidos para aplicar formatação Markdown diretamente no editor de texto.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Estilo / Função</th>
+                    <th>Resultado Markdown</th>
+                    <th>Atalho de Teclado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Negrito (Bold)</strong></td>
+                    <td><code>**texto**</code></td>
+                    <td><span class="shortcut">Ctrl + B</span></td>
+                </tr>
+                <tr>
+                    <td><em>Itálico (Italic)</em></td>
+                    <td><code>*texto*</code></td>
+                    <td><span class="shortcut">Ctrl + I</span></td>
+                </tr>
+                <tr>
+                    <td><strong><em>Negrito e Itálico</em></strong></td>
+                    <td><code>***texto***</code></td>
+                    <td><span class="shortcut">Ctrl + Shift + B</span></td>
+                </tr>
+                <tr>
+                    <td><code>Código (Inline)</code></td>
+                    <td><code>`texto`</code></td>
+                    <td><span class="shortcut">Ctrl / Cmd + `</span></td>
+                </tr>
+                <tr>
+                    <td>Bloco de Código</td>
+                    <td><code>```texto```</code></td>
+                    <td><span class="shortcut">Ctrl + Shift + M</span></td>
+                </tr>
+                <tr>
+                    <td>Link Externo</td>
+                    <td><code>[texto](url)</code></td>
+                    <td><span class="shortcut">Ctrl + K</span></td>
+                </tr>
+                <tr>
+                    <td>Inserir Imagem</td>
+                    <td><code>![alt](url)</code></td>
+                    <td><span class="shortcut">Ctrl + Shift + G</span></td>
+                </tr>
+                <tr>
+                    <td>Link via Clipboard</td>
+                    <td><code>[alt](url_do_clipboard)</code></td>
+                    <td><span class="shortcut">Ctrl + Shift + K</span></td>
+                </tr>
+                <tr>
+                    <td>Ícone (Alias)</td>
+                    <td>Aceita alias de ícone</td>
+                    <td><span class="shortcut">Ctrl + Shift + I</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SEÇÃO 2 -->
+        <h2><i data-lucide="settings-2"></i> 2. Gestão e Configuração</h2>
+        
+        <h3>2.1. Organização dos Snaps</h3>
+        <p>O popup da extensão é a central de controle onde você poderá:</p>
+        <ul>
+            <li><strong>Criar novos Snaps:</strong> Adicione comandos personalizados rapidamente.</li>
+            <li><strong>Editar e excluir:</strong> Mantenha sua biblioteca sempre atualizada modificando ou removendo Snaps existentes.</li>
+            <li><strong>Arraste e Solte:</strong> Reorganize Snaps e Pastas livremente.</li>
+            <li><strong>Métricas:</strong> Visualize estatísticas de uso através do ícone <i data-lucide="info" size="14" class="icon-inline"></i>.</li>
+        </ul>
+
+        <h3>2.2. Pesquisa Inteligente</h3>
+        <p>Localize qualquer comando pesquisando pelo <strong>Título</strong> ou pelo próprio <strong>Comando</strong>.</p>
+
+        <!-- SEÇÃO 3 -->
+        <h2><i data-lucide="box"></i> 3. Ferramentas Avançadas (⚙️)</h2>
+        
+        <h3 id="ferramentas">3.1. Importação e Exportação</h3>
+        <p>Gerencie sua base de Snaps de forma externa para backup, compartilhamento ou edições em massa.</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+            <div>
+                <strong>📤 Exportar Snaps</strong>
+                <ul style="font-size: 0.85rem; padding-left: 1.2rem;">
+                    <li><strong>Filtros:</strong> Por pasta ou tipo de armazenamento (Sync/Local).</li>
+                    <li><strong>Formatos:</strong> JSON ou CSV.</li>
+                    <li><strong>Segurança CSV:</strong> Formato ajustado para Excel, evitando fórmulas.</li>
+                </ul>
+            </div>
+            <div>
+                <strong>📥 Importar Snaps</strong>
+                <ul style="font-size: 0.85rem; padding-left: 1.2rem;">
+                    <li><strong>Opções:</strong> Criar novos ou atualizar existentes.</li>
+                    <li><strong>Formatos:</strong> JSON ou CSV suportados.</li>
+                    <li><strong>Recuperação:</strong> Botão <strong>Restaurar</strong> para rollback de segurança.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="instruction-box" style="background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; font-size: 0.9rem;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                <i data-lucide="monitor" size="18"></i>
+                <strong>Aviso para usuários Linux:</strong>
+            </div>
+            No Linux, o popup pode fechar automaticamente ao selecionar um arquivo. Caso isso ocorra, clique no ícone de <strong>monitor</strong> (Expandir para Página Inteira) no topo do popup. Na versão de página cheia, a importação funcionará normalmente.
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 35%;">O que o arquivo tem?</th>
+                    <th>O que o SnapIt faz?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ID que já existe</strong> na sua base</td>
+                    <td>O Snap é <strong>atualizado</strong>. Se houver campos vazios no arquivo, os valores atuais do Snap são mantidos.</td>
+                </tr>
+                <tr>
+                    <td><strong>ID que não existe</strong> na base</td>
+                    <td>O Snap é <strong>criado como novo</strong> (se a opção "Cadastrar faltantes" estiver ativa). Um novo ID será gerado.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sem ID</strong> no arquivo</td>
+                    <td>O item é criado como um novo Snap.</td>
+                </tr>
+                <tr>
+                    <td><strong>Comando (Snap) duplicado</strong></td>
+                    <td>O comando repetido é <strong>ignorado</strong> para evitar conflitos.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="instruction-box" style="background: #fee2e2; border-color: #fecaca; color: #991b1b; font-size: 0.85rem;">
+            <strong>Limites e Requisitos de Segurança por Importação:</strong><br>
+            • Máximo de <strong>2000 Snaps</strong> ou <strong>25 MB</strong> por arquivo.<br>
+            • Campos obrigatórios para novos Snaps: <strong>Título, Comando (Snap) e Texto</strong>.<br>
+            • Limites individuais: Título (200), Comando (120) e Texto (50.000 caracteres).<br>
+            • Capacidade total máxima combinada: <strong>20.000.000 de caracteres</strong>.
+        </div>
+
+        <h3>3.2. Dados de Uso</h3>
+        <p>Acompanhe sua economia de tempo real. A seção de dados mostra o armazenamento ocupado e o tempo total poupado.</p>
+
+        <!-- SEÇÃO 4 -->
+        <h2><i data-lucide="external-link"></i> 4. Links de Acesso e Instalação</h2>
+        <p>Compartilhe as informações abaixo com os colaboradores para garantir que todos utilizem a versão oficial da extensão:</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <!-- Instalação -->
+            <div class="feature-card" style="text-align: center; margin: 0;">
+                <strong>Extensão oficial:</strong><br>
+                <p style="font-size: 0.85rem; color: var(--secondary); margin-bottom: 1rem;">Clique para instalar diretamente da Chrome Web Store.</p>
+                <a href="https://chromewebstore.google.com/detail/kkflmijgkikoonfpioijidinjdjdpjki?utm_source=item-share-cb" target="_blank" class="link-button">Instalar SnapIt agora</a>
+            </div>
+
+            <!-- Base de Conhecimento -->
+            <div class="feature-card" style="text-align: center; margin: 0; border-left-color: var(--secondary);">
+                <strong>Planilha de Respostas:</strong><br>
+                <p style="font-size: 0.85rem; color: var(--secondary); margin-bottom: 1rem;">Base de conhecimento pronta para sua primeira importação.</p>
+                <a href="https://docs.google.com/spreadsheets/d/18ISEk9f9eshzjrt3p4Znjd23p9AV-RbQOoEcL360LoY/edit?usp=sharing" target="_blank" class="secondary-link-button">Acessar Planilha</a>
+                <small style="color: var(--secondary); font-size: 0.75rem;">(Importe via CSV para o SnapIt)</small>
+            </div>
+        </div>
+
+        <div class="instruction-box" style="background: #fdf2f2; border: 1px solid #f8d7da; color: #721c24; margin-top: 2rem;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                <i data-lucide="shield-alert" size="20"></i>
+                <strong style="font-size: 1rem;">Lembrete de Segurança</strong>
+            </div>
+            <p style="margin: 0; font-size: 0.95rem;">
+                Esta extensão é de <strong>uso interno exclusivo</strong> e não deve ser divulgada ou compartilhada com pessoas de fora da organização (<strong>LWSA</strong>). O uso indevido ou a divulgação externa dos comandos e funcionalidades é estritamente proibido.
+            </p>
+        </div>
+
+        <!-- SUPORTE -->
+        <div style="text-align: center; margin-top: 1.5rem; padding: 1rem 2rem; border-top: 1px dashed var(--border);">
+            <i data-lucide="help-circle" color="var(--primary)" size="24" style="margin-bottom: 0.5rem;"></i>
+            <p style="margin: 0; font-weight: 600; color: var(--text);">Dúvidas ou sugestões?</p>
+            <p style="margin: 5px 0 0; font-size: 0.95rem; color: var(--secondary);">
+                Envie um e-mail para <a href="mailto:extensoes@bling.com.br" style="color: var(--primary); font-weight: 600; text-decoration: none;">extensoes@bling.com.br</a><br>
+                mencionando <strong>SnapIt</strong> no título da mensagem.
+            </p>
+        </div>
+
+        <footer>
+            SnapIt - Manual do Usuário | Versão 2.1 | 2026
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
